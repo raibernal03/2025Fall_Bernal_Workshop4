@@ -32,6 +32,8 @@ public class DealershipFileManager {
                 dealership.addVehicle(vehicle);
 
             }
+            reader.close();
+            fr.close();
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
