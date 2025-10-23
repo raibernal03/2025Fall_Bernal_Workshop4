@@ -36,7 +36,7 @@ public class Dealership {
         List<Vehicle> vehicles = new ArrayList<>();
 
         for (Vehicle v : inventory) {
-            if (v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model)) {
+            if (v.getMake().toLowerCase().contains(make.toLowerCase()) && v.getModel().toLowerCase().contains(model.toLowerCase())) {
                 vehicles.add(v);
             }
         }
@@ -60,7 +60,7 @@ public class Dealership {
         List<Vehicle> vehicles = new ArrayList<>();
 
         for (Vehicle v : inventory) {
-            if (v.getColor().equalsIgnoreCase(color)) {
+            if (v.getColor().toLowerCase().contains(color.toLowerCase())) {
                 vehicles.add(v);
             }
         }
@@ -69,11 +69,11 @@ public class Dealership {
     }
 
     //vehicle by mileage
-    public List<Vehicle> getVehiclesByMileage(int maxMileage) {
+    public List<Vehicle> getVehiclesByMileage(int min, int max) {
         List<Vehicle> vehicles = new ArrayList<>();
 
         for (Vehicle v : inventory) {
-            if (v.getOdometer() <= maxMileage) {
+            if(v.getOdometer() >= min && v.getOdometer() <= max) {
                 vehicles.add(v);
             }
         }
@@ -108,4 +108,5 @@ public class Dealership {
     public void removeVehicle(Vehicle vehicle) {
         inventory.remove(vehicle);
     }
+
 }
