@@ -7,7 +7,7 @@ public class Dealership {
     private String name;
     private String address;
     private String phone;
-    private List<Vehicle> inventory;
+    private List<Vehicle> inventory = new ArrayList<>();
 
     public Dealership() {
     }
@@ -25,6 +25,7 @@ public class Dealership {
         for (Vehicle v : inventory) {
             if (v.getPrice() >= min && v.getPrice() <= max) {
                 vehicles.add(v);
+
             }
         }
 
@@ -36,7 +37,8 @@ public class Dealership {
         List<Vehicle> vehicles = new ArrayList<>();
 
         for (Vehicle v : inventory) {
-            if (v.getMake().toLowerCase().contains(make.toLowerCase()) && v.getModel().toLowerCase().contains(model.toLowerCase())) {
+            if (v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model)) {
+
                 vehicles.add(v);
             }
         }
@@ -60,7 +62,7 @@ public class Dealership {
         List<Vehicle> vehicles = new ArrayList<>();
 
         for (Vehicle v : inventory) {
-            if (v.getColor().toLowerCase().contains(color.toLowerCase())) {
+            if (v.getColor().equalsIgnoreCase(color)) {
                 vehicles.add(v);
             }
         }
@@ -96,7 +98,7 @@ public class Dealership {
 
     //all vehicles
     public List<Vehicle> getAllVehicles() {
-        return inventory;
+        return this.inventory;
     }
 
     //add vehicle
