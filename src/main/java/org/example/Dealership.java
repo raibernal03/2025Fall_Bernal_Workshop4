@@ -18,6 +18,30 @@ public class Dealership {
         this.phone = phone;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     //min and max price
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
         List<Vehicle> vehicles = new ArrayList<>();
@@ -109,6 +133,7 @@ public class Dealership {
     //remove vehicle
     public void removeVehicle(Vehicle vehicle) {
         inventory.remove(vehicle);
+
     }
 
 }
