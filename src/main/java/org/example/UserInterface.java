@@ -215,10 +215,18 @@ public class UserInterface {
         for (Vehicle v : dealership.getAllVehicles()) {
             if (v.getVin() == vin) {
                 System.out.println("Vehicle Found:");
-                System.out.printf("VIN: %d, Year: %d, Make: %s, Model: %s, Type: %s, Color: %s, Odometer: %d, Price: %.2f\n",
-                        v.getVin(), v.getYear(), v.getMake(), v.getModel(), v.getVehicleType(),
-                        v.getColor(), v.getOdometer(), v.getPrice());
+                System.out.printf("%-5d | %-6d | %-10s | %-10s | %-15s | %-10s | %-10d | $%-10.2f\n",
+                        v.getVin(),
+                        v.getYear(),
+                        v.getMake(),
+                        v.getModel(),
+                        v.getVehicleType(),
+                        v.getColor(),
+                        v.getOdometer(),
+                        v.getPrice());
+
                 dealership.removeVehicle(v);
+                System.out.println("✅ Vehicle removed successfully!");
                 break;
             }
         }

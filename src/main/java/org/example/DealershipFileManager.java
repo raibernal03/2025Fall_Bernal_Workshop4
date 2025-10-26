@@ -66,7 +66,7 @@ public class DealershipFileManager {
             FileWriter fw = new FileWriter("src/main/resources/inventory.csv");
             BufferedWriter bw = new BufferedWriter(fw);
 
-            bw.write("\n" + dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
+            bw.write( dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
             List<Vehicle> vehicles = dealership.getAllVehicles();
             for (Vehicle v : vehicles) {
                 bw.write("\n" + v.getVin() + "|" + v.getYear() + "|" + v.getMake() + "|" + v.getModel() + "|" + v.getVehicleType() + "|" + v.getColor() + "|" + v.getOdometer() + "|" + v.getPrice());
