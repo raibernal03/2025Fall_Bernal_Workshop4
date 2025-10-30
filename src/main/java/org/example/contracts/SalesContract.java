@@ -10,8 +10,6 @@ public class SalesContract extends Contract {
         this.financeOrNot = financeOrNot;
     }
 
-
-
     //getters & setters
     public double getSalesTaxAmount() {
         return getVehicle().getPrice() * 0.05;
@@ -22,9 +20,9 @@ public class SalesContract extends Contract {
     }
 
     public double getProcessingFee() {
-        if(getTotalPrice() < 10000){
+        if (getVehicle().getPrice() < 10000) {
             return 295;
-        }else{
+        } else {
             return 495;
         }
     }
@@ -61,9 +59,7 @@ public class SalesContract extends Contract {
 
     @Override
     public double getTotalPrice() {
-
         return 0;
     }
-
 
 }
