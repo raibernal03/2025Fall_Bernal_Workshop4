@@ -263,4 +263,8 @@ public class UserInterface {
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
     }
+
+    public void createContract() {
+
+    }
 }
