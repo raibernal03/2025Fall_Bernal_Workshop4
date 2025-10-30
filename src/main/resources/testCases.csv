@@ -1,0 +1,27 @@
+TestCaseID,Date,CustomerName,CustomerEmail,VehiclePrice,FinanceOrNot,ExpectedSalesTax,ExpectedRecordingFee,ExpectedProcessingFee,ExpectedTotalPrice,ExpectedMonthlyPayment,Description,
+TC01,2025-10-30,JohnDoe,john@example.com,8000.00,false,400.00,100.00,295.00,8795.00,0.00,Saleunder$10,000withoutfinancing
+TC02,2025-10-30,JaneSmith,jane@example.com,15000.00,false,750.00,100.00,495.00,16145.00,0.00,Saleabove$10,000withoutfinancing
+TC06,2025-10-30,SarahKim,sarah@example.com,9999.99,false,500.00,100.00,295.00,10894.99,0.00,Edgecasejustbelowfinancethresholdwithoutfinancing,
+
+
+
+
+
+TC03,2025-10-30,AlexLee,alex@example.com,9500.00,true,475.00,100.00,295.00,10370.00,456.84,Salejustunder$10,000withfinancing(24months,5.25%)
+TC044,2025-10-30,MariaChen,maria@example.com,10000.00,true,500.00,100.00,495.00,11095.00,253.14,Saleexactly$10,000withfinancing(48months,4.25%)
+TC05,2025-10-30,CarlosRuiz,carlos@example.com,25000.00,true,1250.00,100.00,495.00,26645.00,607.80,High-valuesalewithfinancing(48months,4.25%)
+TC07,2025-10-30,LiamWest,liam@example.com,10000.01,true,500.00,100.00,495.00,11095.01,253.15,Edgecasejustabovethresholdwithfinancing,
+
+FINANCEOPTION
+VIN,YEAR,MAKE,MODEL,VEHICLE_TYPE,COLOR,ODOMETER,VEHICLE_PRICE,DATE,CUSTOMERNAME,CUSTOMEREMAIL,FINANCE_OPTION,EXPECTED_SALES_TAX,EXPECTED_RECORDING_FEE,EXPECTED_PROCESSING_FEE,EXPECTED_TOTAL_PRICE,EXPECTED_MONTHLY_PAYMENT,
+12345,2026,Toyota,GR86,Sports,Black,0,30000.0,2025-10-30,NaaraiBernal,nbernal0326@gmail.com,true,1500,100,495,32095,728.27
+12345,2026,Toyota,GR86,Sports,Black,0,5000.0,2025-10-30,NaaraiBernal,nbernal0326@gmail.com,true,250,100,295,5645,248.29
+
+NOFINANCEOPTION
+VIN,YEAR,MAKE,MODEL,VEHICLE_TYPE,COLOR,ODOMETER,VEHICLE_PRICE,DATE,CUSTOMERNAME,CUSTOMEREMAIL,FINANCE_OPTION,EXPECTED_SALES_TAX,EXPECTED_RECORDING_FEE,EXPECTED_PROCESSING_FEE,EXPECTED_TOTAL_PRICE,EXPECTED_MONTHLY_PAYMENT,
+"12345,2026,Toyota,GR86,Sports,Black,0,30000.0,2025-10-30,NaaraiBernal,nbernal0326@gmail.com,false,1500,100,495,32095,0",
+"12345,2026,Toyota,GR86,Sports,Black,0,5000.0,2025-10-30,NaaraiBernal,nbernal0326@gmail.com,false,250,100,295,5645,0"
+
+String vin,String year,String make,String model,String vehicleType,String color,int odometer,doule vehiclePrice,String date,String customerName,String customerEmail, double expectedEndingValue, double expectedLeaseFee, double expectedTotalPrice, double expectedMonthlyPrice
+"12345,2026,Toyota,GR86,Sports,Black,0,30000.0,2025-10-30,Naarai Bernal,nbernal0326@gmail.com,15000, 2100, 17100,504.86",
+"12345,2026,Toyota,GR86,Sports,Black,0,5000.0,2025-10-30,Naarai Bernal,nbernal0326@gmail.com,2500,350,2850,84.14"
