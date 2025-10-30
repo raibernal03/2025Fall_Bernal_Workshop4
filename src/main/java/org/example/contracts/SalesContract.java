@@ -1,39 +1,31 @@
 package org.example.contracts;
 
+import org.example.dealership.Vehicle;
+
 public class SalesContract extends Contract {
-    private double salesTaxAmount;
-    private double recordingFee = 100;
-    private double processingFee;
     private boolean financeOrNot;
 
-    public SalesContract(String date, String customerName, String customerEmail, boolean vehicleSold, double salesTaxAmount, double recordingFee, double processingFee, boolean financeOrNot) {
-        super(date, customerName, customerEmail, vehicleSold);
-        this.salesTaxAmount = salesTaxAmount;
+    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicle, boolean financeOrNot) {
+        super(date, customerName, customerEmail, vehicle);
         this.financeOrNot = financeOrNot;
     }
 
+
+
     //getters & setters
     public double getSalesTaxAmount() {
-        return salesTaxAmount;
-    }
-
-    public void setSalesTaxAmount(double salesTaxAmount) {
-        this.salesTaxAmount = salesTaxAmount;
+        return getVehicle().getPrice() * 0.05;
     }
 
     public double getRecordingFee() {
-        return recordingFee;
-    }
-
-    public void setRecordingFee(double recordingFee) {
-        this.recordingFee = recordingFee;
+        return 100;
     }
 
     public double getProcessingFee() {
         if(getTotalPrice() < 10000){
-            return processingFee = 295;
+            return 295;
         }else{
-            return processingFee = 495;
+            return 495;
         }
     }
 
@@ -47,27 +39,26 @@ public class SalesContract extends Contract {
 
     @Override
     public double getMonthlyPayment() {
-        double p = getTotalPrice();
+        double p = getVehicle().getPrice();
         double r = 0;
         double n = 0;
-        if(!financeOrNot) {
+        if (!financeOrNot) {
             return 0;
-        }else{
-            if(getTotalPrice() >= 10000){
-                r =  .0425;
+        } else {
+            if (p >= 10000) {
+                r = .0425;
                 n = 48;
-                double top = p * r *(Math.pow((1+r), n));
-                double bottom = (Math.pow((1+r), n)) -1;
-                return top / bottom;
-            }else{
-                r =  0.0525;
+
+            } else {
+                r = 0.0525;
                 n = 24;
-                double top = p * r *(Math.pow((1+r), n));
-                double bottom = (Math.pow((1+r), n)) -1;
-                return top / bottom;
             }
+            double top = p * r * (Math.pow((1 + r), n));
+            double bottom = (Math.pow((1 + r), n)) - 1;
+            return top / bottom;
         }
     }
+
     @Override
     public double getTotalPrice() {
 

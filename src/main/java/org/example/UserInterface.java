@@ -1,5 +1,9 @@
 package org.example;
 
+import org.example.dealership.Dealership;
+import org.example.dealership.DealershipFileManager;
+import org.example.dealership.Vehicle;
+
 import java.util.List;
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.dealership;
 
 import java.io.*;
 import java.util.List;

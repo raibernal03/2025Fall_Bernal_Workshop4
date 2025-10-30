@@ -1,16 +1,18 @@
 package org.example.contracts;
 
+import org.example.dealership.Vehicle;
+
 public abstract class Contract {
     private String date;
     private String customerName;
     private String customerEmail;
-    private boolean vehicleSold;
+    private Vehicle vehicle;
 
-    public Contract(String date, String customerName, String customerEmail, boolean vehicleSold) {
+    public Contract(String date, String customerName, String customerEmail, Vehicle vehicle) {
         this.date = date;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
-        this.vehicleSold = vehicleSold;
+        this.vehicle = vehicle;
     }
 
     //getters and setters
@@ -38,14 +40,13 @@ public abstract class Contract {
         this.customerEmail = customerEmail;
     }
 
-    public boolean isVehicleSold() {
-        return vehicleSold;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleSold(boolean vehicleSold) {
-        this.vehicleSold = vehicleSold;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
-
 
     public abstract double getTotalPrice();
 
