@@ -28,16 +28,26 @@ public class UserInterface {
                 System.out.println("=".repeat(100));
 
                 System.out.println("Please select an option:");
-                System.out.println("1. Get Vehicles by Price"
-                        + "\n2. Get Vehicles by Make and Model"
-                        + "\n3. Get Vehicles by Year"
-                        + "\n4. Get Vehicles by Color"
-                        + "\n5. Get Vehicles by Mileage"
-                        + "\n6. Get Vehicles by Vehicle Type"
-                        + "\n7. Get All Vehicles"
-                        + "\n8. Add Vehicle"
-                        + "\n9. Remove Vehicle"
-                        + "\n0. Exit");
+                System.out.println("""
+                        1. View Vehicles by Price\
+                        
+                        2. View Vehicles by Make and Model\
+                        
+                        3. View Vehicles by Year\
+                        
+                        4. View Vehicles by Color\
+                        
+                        5. View Vehicles by Mileage\
+                        
+                        6. View Vehicles by Vehicle Type\
+                        
+                        7. View All Vehicles\
+                        
+                        8. Add Vehicle\
+                        
+                        9. Remove Vehicle\
+                        
+                        0. Exit""");
 
                 System.out.print("--> ");
                 int input = Integer.parseInt(scanner.nextLine());
@@ -271,9 +281,12 @@ public class UserInterface {
 
     public void leaseOrBuy() {
         try {
-            System.out.println("1) Buy a car"
-                    + "\n2) Lease a car"
-                    + "\n0) Continue without a contract");
+            System.out.println("""
+                    1) Buy a car\
+                    
+                    2) Lease a car\
+                    
+                    0) Continue without a contract""");
             System.out.print("--> ");
             int input = Integer.parseInt(scanner.nextLine());
             switch (input) {
@@ -293,6 +306,7 @@ public class UserInterface {
             System.out.println(e.getMessage());
         }
     }
+
     public void processBuyContractRequest(){
         try {
 

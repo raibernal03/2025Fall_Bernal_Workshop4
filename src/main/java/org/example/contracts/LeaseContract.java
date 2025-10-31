@@ -24,10 +24,10 @@ public class LeaseContract extends Contract {
 
     @Override
     public double getMonthlyPayment() {
-        double rate = 0.04;
+        double rate = 0.04/12;
         int months = 36;
-        double top = getTotalPrice() * (rate / 12);
-        double bottom = 1 - (Math.pow((1 + (rate / 12)), -months));
+        double top = getTotalPrice() * (rate );
+        double bottom = 1 - (Math.pow((1 + (rate)), -months));
         return top / bottom;
     }
 }
