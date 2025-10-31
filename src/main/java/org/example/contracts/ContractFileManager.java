@@ -7,10 +7,10 @@ import java.io.IOException;
 public class ContractFileManager {
     public static void saveContract(Contract contract){
         try {
-            FileWriter fw = new FileWriter("src/main/resources/contracts.txt");
+            FileWriter fw = new FileWriter("src/main/resources/contracts.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             if (contract instanceof SalesContract) {
-                bw.write(String.format("Sale|%s|%s|%s|%s|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f|%s|%.2f",
+                bw.write(String.format("SALE|%s|%s|%s|%s|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f|%s|%.2f",
                         contract.getDate(),
                         contract.getCustomerName(),
                         contract.getCustomerEmail(),
@@ -53,7 +53,7 @@ public class ContractFileManager {
             fw.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } catch (Exception e) {
+        } catch (Exception e){
             System.out.println(e.getMessage());
         }
     }

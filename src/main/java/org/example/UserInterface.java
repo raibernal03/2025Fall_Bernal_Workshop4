@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.contracts.*;
 import org.example.dealership.Dealership;
 import org.example.dealership.DealershipFileManager;
 import org.example.dealership.Vehicle;
@@ -72,6 +73,8 @@ public class UserInterface {
                     case 0:
                         running = false;
                         System.out.println("Exiting the system. Goodbye!👋");
+                        scanner.close();
+                        System.exit(0);
                         break;
                     default:
                         System.out.println("❌Invalid option. Please try again.");
@@ -80,6 +83,7 @@ public class UserInterface {
             } catch(Exception e){
                 System.out.println("❌Invalid input. Please choose a number between '0' and '9'");
             }
+
         }
     }
 
@@ -260,11 +264,111 @@ public class UserInterface {
                     vehicle.getPrice());
         }
         System.out.println("-".repeat(100));
+        leaseOrBuy();
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
     }
 
-    public void createContract() {
+    public void leaseOrBuy() {
+        try {
+            System.out.println("1) Buy a car"
+                    + "\n2) Lease a car"
+                    + "\n0) Continue without a contract");
+            System.out.print("--> ");
+            int input = Integer.parseInt(scanner.nextLine());
+            switch (input) {
+                case 1:
+                    processBuyContractRequest();
+                    break;
+                case 2:
+                    //processLeaseContractRequest();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("❌Invalid option. Please try again.");
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void processBuyContractRequest(){
+        try {
 
+            System.out.println("Enter Vin: ");
+            System.out.print("--> ");
+            int vin = Integer.parseInt(scanner.nextLine());
+            for (Vehicle v : dealership.getAllVehicles()) {
+                if (v.getVin() == vin) {
+                    System.out.println("Vehicle Available for Purchase ✅");
+                    System.out.print("Enter Customer Name: ");
+                    String customerName = scanner.nextLine();
+                    System.out.print("Enter Customer Email: ");
+                    String customerEmail = scanner.nextLine();
+                    System.out.print("Enter Date (MM/DD/YYYY): ");
+                    String date = scanner.nextLine();
+                    System.out.print("Is the customer financing the purchase? (yes/no): ");
+                    String financeInput = scanner.nextLine().trim().toLowerCase();
+                    boolean isFinancing = financeInput.equals("yes");
+                    System.out.println("Contract Details:");
+                    ContractDataManager.createSalesContract(date, customerName, customerEmail, v, isFinancing);
+
+                    System.out.println("Do you accept these terms? (yes/no): ");
+                    System.out.print("--> ");
+                    String acceptInput = scanner.nextLine().trim().toLowerCase();
+                    if (!acceptInput.equals("yes")) {
+                        System.out.println("Contract not accepted. Returning to main menu.");
+                        return;
+                    }  else{
+                        SalesContract salesContract = new SalesContract(date, customerName, customerEmail, v, isFinancing);
+                        ContractFileManager.saveContract(salesContract);
+                        dealership.removeVehicle(v);
+                        System.out.println("Sales Contract Created Successfully!✅");
+                    }
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void processLeaseContractRequest(){
+        try {
+
+            System.out.println("Enter Vin: ");
+            System.out.print("--> ");
+            int vin = Integer.parseInt(scanner.nextLine());
+            for (Vehicle v : dealership.getAllVehicles()) {
+                if (v.getVin() == vin) {
+                    System.out.println("Vehicle Available for Lease ✅");
+                    System.out.print("Enter Customer Name: ");
+                    String customerName = scanner.nextLine();
+                    System.out.print("Enter Customer Email: ");
+                    String customerEmail = scanner.nextLine();
+                    System.out.print("Enter Date (MM/DD/YYYY): ");
+                    String date = scanner.nextLine();
+                    System.out.println("Contract Details:");
+                    ContractDataManager.createLeaseContract(date, customerName, customerEmail, v);
+
+                    System.out.println("Do you accept these terms? (yes/no): ");
+                    System.out.print("--> ");
+                    String acceptInput = scanner.nextLine().trim().toLowerCase();
+                    if (!acceptInput.equals("yes")) {
+                        System.out.println("Contract not accepted. Returning to main menu.");
+                        return;
+                    }  else{
+                        LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, v);
+                        ContractFileManager.saveContract(leaseContract);
+                        dealership.removeVehicle(v);
+                        System.out.println("Lease Contract Created Successfully!✅");
+                    }
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
