@@ -281,7 +281,7 @@ public class UserInterface {
                     processBuyContractRequest();
                     break;
                 case 2:
-                    //processLeaseContractRequest();
+                    processLeaseContractRequest();
                     break;
                 case 0:
                     break;
@@ -324,6 +324,7 @@ public class UserInterface {
                         SalesContract salesContract = new SalesContract(date, customerName, customerEmail, v, isFinancing);
                         ContractFileManager.saveContract(salesContract);
                         dealership.removeVehicle(v);
+                        DealershipFileManager.saveDealership(dealership);
                         System.out.println("Sales Contract Created Successfully!✅");
                     }
                     break;
@@ -355,6 +356,7 @@ public class UserInterface {
                     System.out.println("Do you accept these terms? (yes/no): ");
                     System.out.print("--> ");
                     String acceptInput = scanner.nextLine().trim().toLowerCase();
+
                     if (!acceptInput.equals("yes")) {
                         System.out.println("Contract not accepted. Returning to main menu.");
                         return;
@@ -362,6 +364,7 @@ public class UserInterface {
                         LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, v);
                         ContractFileManager.saveContract(leaseContract);
                         dealership.removeVehicle(v);
+                        DealershipFileManager.saveDealership(dealership);
                         System.out.println("Lease Contract Created Successfully!✅");
                     }
                     break;

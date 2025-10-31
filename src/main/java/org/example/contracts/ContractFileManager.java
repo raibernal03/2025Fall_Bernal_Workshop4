@@ -7,10 +7,10 @@ import java.io.IOException;
 public class ContractFileManager {
     public static void saveContract(Contract contract){
         try {
-            FileWriter fw = new FileWriter("src/main/resources/contracts.txt", true);
+            FileWriter fw = new FileWriter("src/main/resources/contracts.csv", true);
             BufferedWriter bw = new BufferedWriter(fw);
             if (contract instanceof SalesContract) {
-                bw.write(String.format("SALE|%s|%s|%s|%s|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f|%s|%.2f",
+                bw.write(String.format("SALE|%s|%s|%s|%s|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f|%s|%.2f\n",
                         contract.getDate(),
                         contract.getCustomerName(),
                         contract.getCustomerEmail(),
@@ -30,7 +30,7 @@ public class ContractFileManager {
                         contract.getMonthlyPayment()));
 
             } else if(contract instanceof LeaseContract){
-                bw.write(String.format("LEASE|%s|%s|%s|%s|%s|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f",
+                bw.write(String.format("LEASE|%s|%s|%s|%s|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f\n",
                         contract.getDate(),
                         contract.getCustomerName(),
                         contract.getCustomerEmail(),
