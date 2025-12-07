@@ -1,4 +1,4 @@
-package gui;
+package org.example.gui;
 
 import org.example.dataManager.DealershipDAO;
 import org.example.dataManager.VehiclesDAO;
