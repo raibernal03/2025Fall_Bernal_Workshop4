@@ -159,12 +159,13 @@ public class VehiclesDAO {
 
     /*select * from vehicles
     where Year between 2015 and 2020;*/
-    public List<Vehicle> getByYearRange(int year, int dealershipID) {
+    public List<Vehicle> getByYearRange(int minYear,int maxYear, int dealershipID) {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sqlQuery = "SELECT * FROM vehicles WHERE Year = ?";
+        String sqlQuery = "SELECT * FROM vehicles WHERE Year between ? and ?";
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass)) {
             PreparedStatement ps = conn.prepareStatement(sqlQuery);
-            ps.setInt(1, year);
+            ps.setInt(1, minYear);
+            ps.setInt(2, maxYear);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

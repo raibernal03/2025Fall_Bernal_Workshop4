@@ -79,7 +79,7 @@ public class GUI {
             case 3:
                 System.out.print("↪ Enter Year: ");
                 int year = Integer.parseInt(sc.nextLine());
-                var vehiclesByYear = vdao.getByYearRange(year, dealership.getDealershipID());
+                //var vehiclesByYear = vdao.getByYearRange(year, dealership.getDealershipID());
                 //print it out
                 break;
             case 4:
@@ -114,14 +114,24 @@ public class GUI {
         }
     }
 
-    public void leaseOrBuy(){
+    public void leaseOrBuy() {
+        System.out.println("""
+                1) Buy a car\
+                
+                2) Lease a car\
+                
+                0) Continue without a contract""");
+        int choice = Integer.parseInt(sc.nextLine());
+        switch (choice) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 0:
+                break;
 
-            System.out.println("""
-                    1) Buy a car\
-                    
-                    2) Lease a car\
-                    
-                    0) Continue without a contract""");
+        }
     }
+
 
 }

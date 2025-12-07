@@ -1,8 +1,10 @@
-/*
 
 package org.example;
 
 //import org.example.oldFileManagers.*;
+
+import org.example.dataManager.DealershipDAO;
+import org.example.dataManager.VehiclesDAO;
 import org.example.models.Dealership;
 //import org.example.oldFileManagers.DealershipFileManager;
 import org.example.models.Vehicle;
@@ -14,8 +16,35 @@ import java.util.Scanner;
 
 public class UserInterface {
     static Scanner scanner = new Scanner(System.in);
-
     private Dealership dealership;
+
+
+    String dbUrl;
+    String dbUser;
+    String dbPass;
+
+
+    VehiclesDAO vdao = new VehiclesDAO(dbUrl, dbUser, dbPass);
+
+    public UserInterface(String dbUrl, String dbUser, String dbPass) {
+        this.dbUrl = dbUrl;
+        this.dbUser = dbUser;
+        this.dbPass = dbPass;
+    }
+
+    public void start() {
+        DealershipDAO dealershipDAO = new DealershipDAO(dbUrl, dbUser, dbPass);
+        System.out.println("Choose a Dealership to see its vehicles:");
+        List<Dealership> dealerships = dealershipDAO.getAllDealerships();
+        System.out.printf("%-5s|%-20s|%-30s|%-10s\n", "ID", "Name", "Address", "Phone");
+
+        dealerships.stream().forEach(x -> System.out.printf("%-5d|%-20s|%-30s|%-10s\n", x.getDealershipID(), x.getName(), x.getAddress(), x.getPhone()));
+
+        System.out.print("↪Enter Dealership ID:");
+        int dealershipID = Integer.parseInt(scanner.nextLine());
+        dealership = dealershipDAO.getDealershipById(dealershipID).orElse(null);
+
+    }
 
     public UserInterface() {
     }
@@ -26,9 +55,9 @@ public class UserInterface {
         while (running) {
             try {
                 System.out.println("=".repeat(100));
-                System.out.printf("%38s %-23s \n"," ", dealership.getName());
-                System.out.printf("%35s %-20s\n"," ", dealership.getAddress());
-                System.out.printf("%34s %22s\n"," ", dealership.getPhone());
+                System.out.printf("%38s %-23s \n", " ", dealership.getName());
+                System.out.printf("%35s %-20s\n", " ", dealership.getAddress());
+                System.out.printf("%34s %22s\n", " ", dealership.getPhone());
                 System.out.println("=".repeat(100));
 
                 System.out.println("Please select an option:");
@@ -94,7 +123,7 @@ public class UserInterface {
                         System.out.println("❌Invalid option. Please try again.");
                         break;
                 }
-            } catch(Exception e){
+            } catch (Exception e) {
                 System.out.println("❌Invalid input. Please choose a number between '0' and '9'");
             }
 
@@ -106,38 +135,42 @@ public class UserInterface {
     }
 
     public void processGetByPriceRequest() {
+
         boolean running = true;
         while (running) {
             System.out.println("=".repeat(100));
-            System.out.printf("%40s %20s %40s\n"," ", "Get Vehicles by Price Range"," ");
+            System.out.printf("%40s %20s %40s\n", " ", "Get Vehicles by Price Range", " ");
             System.out.println("=".repeat(100));
             System.out.print("Enter min: $");
             double min = Double.parseDouble(scanner.nextLine());
             System.out.print("Enter max: $");
             double max = Double.parseDouble(scanner.nextLine());
+            var vehiclesByPrice = vdao.getByPriceRange(min, max, dealership.getDealershipID());
             if (min > max) {
                 System.out.println("Invalid price range. Minimum price cannot be greater than maximum price.");
             } else {
                 running = false;
-                displayList(dealership.getVehiclesByPrice(min, max));
+                displayList(vehiclesByPrice);
             }
         }
     }
 
     public void processGetByMakeModelRequest() {
         System.out.println("=".repeat(100));
-        System.out.printf("%40s %20s %40s\n"," ", "Get Vehicles by Make and Model"," ");
+        System.out.printf("%40s %20s %40s\n", " ", "Get Vehicles by Make and Model", " ");
         System.out.println("=".repeat(100));
         System.out.print("Enter Make: ");
         String make = scanner.nextLine();
         System.out.print("Enter Model: ");
         String model = scanner.nextLine();
-        displayList(dealership.getVehiclesByMakeModel(make, model));
+        var vehiclesByMakeModel = vdao.getByMakeAndModel(make, model, dealership.getDealershipID());
+
+        displayList(vehiclesByMakeModel);
     }
 
     public void processGetByYearRequest() {
         System.out.println("=".repeat(100));
-        System.out.printf("%40s %20s %40s\n"," ", "Get Vehicles by Year Range"," ");
+        System.out.printf("%40s %20s %40s\n", " ", "Get Vehicles by Year", " ");
         System.out.println("=".repeat(100));
         boolean running = true;
         while (running) {
@@ -149,24 +182,27 @@ public class UserInterface {
                 System.out.println("Invalid year range. Minimum year cannot be greater than maximum year.");
             } else {
                 running = false;
-                displayList(dealership.getVehiclesByYear(minYear, maxYear));
+                var list = vdao.getByYearRange(minYear, maxYear, dealership.getDealershipID());
+                displayList(list);
             }
         }
     }
 
     public void processGetByColorRequest() {
         System.out.println("=".repeat(100));
-        System.out.printf("%40s %20s %40s\n"," ", "Get Vehicles by Color"," ");
+        System.out.printf("%40s %20s %40s\n", " ", "Get Vehicles by Color", " ");
         System.out.println("=".repeat(100));
 
         System.out.print("Enter Color: ");
         String color = scanner.nextLine();
-        displayList(dealership.getVehiclesByColor(color));
+        var vehiclesByColor = vdao.getByColor(color, dealership.getDealershipID());
+
+        displayList(vehiclesByColor);
     }
 
     public void processGetByMileageRequest() {
         System.out.println("=".repeat(100));
-        System.out.printf("%40s %20s %40s\n"," ", "Get Vehicles by Mileage Range"," ");
+        System.out.printf("%40s %20s %40s\n", " ", "Get Vehicles by Mileage Range", " ");
         System.out.println("=".repeat(100));
 
         boolean running = true;
@@ -179,30 +215,37 @@ public class UserInterface {
                 System.out.println("Invalid mileage range. Minimum mileage cannot be greater than maximum mileage.");
             } else {
                 running = false;
-                displayList(dealership.getVehiclesByMileage(minMileage, maxMileage));
+                var vehiclesByMileage = vdao.getByOdometerRange(minMileage, maxMileage, dealership.getDealershipID());
+
+
+                displayList(vehiclesByMileage);
             }
         }
     }
 
     public void processGetByVehicleTypeRequest() {
         System.out.println("=".repeat(100));
-        System.out.printf("%40s %20s %40s\n"," ", "Get Vehicles by Vehicle Type"," ");
+        System.out.printf("%40s %20s %40s\n", " ", "Get Vehicles by Vehicle Type (e.g., Sedan, SUV):", " ");
         System.out.println("=".repeat(100));
         System.out.print("Enter Vehicle Type: ");
         String vehicleType = scanner.nextLine();
-        displayList(dealership.getVehiclesByType(vehicleType));
+        var vehiclesByType = vdao.getByVehicleType(vehicleType, dealership.getDealershipID());
+
+        displayList(vehiclesByType);
     }
 
     public void processGetAllVehicleRequest() {
         System.out.println("=".repeat(100));
-        System.out.printf("%40s %20s %40s\n"," ", "All Vehicles in Inventory"," ");
+        System.out.printf("%40s %20s %40s\n", " ", "All Vehicles in Inventory", " ");
         System.out.println("=".repeat(100));
-        displayList(dealership.getAllVehicles());
+        var allVehicles = vdao.getAllVehicles(dealership.getDealershipID());
+
+        displayList(allVehicles);
     }
 
     public void processAddVehicleRequest() {
         System.out.println("=".repeat(100));
-        System.out.printf("%40s %20s %40s\n"," ", "Adding a New Vehicle"," ");
+        System.out.printf("%40s %20s %40s\n", " ", "Adding a New Vehicle", " ");
         System.out.println("=".repeat(100));
         System.out.print("Enter VIN: ");
         int vin = Integer.parseInt(scanner.nextLine());
@@ -220,38 +263,25 @@ public class UserInterface {
         int odometer = Integer.parseInt(scanner.nextLine());
         System.out.print("Enter Price: $");
         double price = Double.parseDouble(scanner.nextLine());
-        Vehicle newVehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
+        Vehicle newVehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price, dealership.getDealershipID());
         dealership.addVehicle(newVehicle);
-        DealershipFileManager.saveDealership(dealership);
+        //DealershipFileManager.saveDealership(dealership);
+        vdao.createVehicle(newVehicle);
         System.out.println("✅ Vehicle added successfully!");
 
     }
 
     public void processRemoveVehicleRequest() {
         System.out.println("=".repeat(100));
-        System.out.printf("%40s %20s %40s\n"," ", "Removing a Vehicle"," ");
+        System.out.printf("%40s %20s %40s\n", " ", "Removing a Vehicle", " ");
         System.out.println("=".repeat(100));
         System.out.print("Enter VIN of the vehicle to remove: ");
         int vin = Integer.parseInt(scanner.nextLine());
-        for (Vehicle v : dealership.getAllVehicles()) {
-            if (v.getVin() == vin) {
-                System.out.println("Vehicle Found:");
-                System.out.printf("%-5d | %-6d | %-10s | %-10s | %-15s | %-10s | %-10d | $%-10.2f\n",
-                        v.getVin(),
-                        v.getYear(),
-                        v.getMake(),
-                        v.getModel(),
-                        v.getVehicleType(),
-                        v.getColor(),
-                        v.getOdometer(),
-                        v.getPrice());
 
-                dealership.removeVehicle(v);
-                System.out.println("✅ Vehicle removed successfully!");
-                break;
-            }
-        }
-        DealershipFileManager.saveDealership(dealership);
+
+        vdao.deleteVehicle(vin);
+        System.out.println("✅ Vehicle removed successfully!");
+
 
     }
 
@@ -310,7 +340,7 @@ public class UserInterface {
         }
     }
 
-    public void processBuyContractRequest(){
+    public void processBuyContractRequest() {
         try {
 
             System.out.println("Enter Vin: ");
@@ -337,7 +367,7 @@ public class UserInterface {
                     if (!acceptInput.equals("yes")) {
                         System.out.println("Contract not accepted. Returning to main menu.");
                         return;
-                    }  else{
+                    } else {
                         SalesContract salesContract = new SalesContract(date, customerName, customerEmail, v, isFinancing);
                         ContractFileManager.saveContract(salesContract);
                         dealership.removeVehicle(v);
@@ -352,7 +382,7 @@ public class UserInterface {
         }
     }
 
-    public void processLeaseContractRequest(){
+    public void processLeaseContractRequest() {
         try {
 
             System.out.println("Enter Vin: ");
@@ -377,7 +407,7 @@ public class UserInterface {
                     if (!acceptInput.equals("yes")) {
                         System.out.println("Contract not accepted. Returning to main menu.");
                         return;
-                    }  else{
+                    } else {
                         LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, v);
                         ContractFileManager.saveContract(leaseContract);
                         dealership.removeVehicle(v);
@@ -393,4 +423,3 @@ public class UserInterface {
     }
 }
 
-*/
