@@ -1,14 +1,13 @@
-package org.example.contracts;
-
-import org.example.dealership.Vehicle;
+package org.example.models;
 
 public class SalesContract extends Contract {
     private boolean financeOrNot;
 
-    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicle, boolean financeOrNot) {
-        super(date, customerName, customerEmail, vehicle);
+    public SalesContract(int contractID, String date, String customerName, String customerEmail, Vehicle vehicle, boolean financeOrNot) {
+        super(contractID, date, customerName, customerEmail, vehicle);
         this.financeOrNot = financeOrNot;
     }
+
 
     //getters
     public double getSalesTaxAmount() {

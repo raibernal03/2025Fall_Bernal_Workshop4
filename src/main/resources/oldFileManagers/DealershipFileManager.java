@@ -1,4 +1,7 @@
-package org.example.dealership;
+package org.example.oldFileManagers;
+
+import org.example.models.Dealership;
+import org.example.models.Vehicle;
 
 import java.io.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.example.dealership;
+package org.example.models;
 
 public class Vehicle {
     private int vin;
@@ -9,8 +9,9 @@ public class Vehicle {
     private String color;
     private int odometer;
     private double price;
+    private int dealershipID;
 
-    public Vehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price) {
+    public Vehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price,int dealershipID) {
         this.vin = vin;
         this.year = year;
         this.make = make;
@@ -19,7 +20,9 @@ public class Vehicle {
         this.color = color;
         this.odometer = odometer;
         this.price = price;
+        this.dealershipID = dealershipID;
     }
+    public  Vehicle() {}
 
     public int getVin() {
         return vin;
@@ -83,5 +86,13 @@ public class Vehicle {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getDealershipID() {
+        return dealershipID;
+    }
+
+    public void setDealershipID(int dealershipID) {
+        this.dealershipID = dealershipID;
     }
 }

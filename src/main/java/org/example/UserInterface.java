@@ -1,9 +1,13 @@
+/*
+
 package org.example;
 
-import org.example.contracts.*;
-import org.example.dealership.Dealership;
-import org.example.dealership.DealershipFileManager;
-import org.example.dealership.Vehicle;
+//import org.example.oldFileManagers.*;
+import org.example.models.Dealership;
+//import org.example.oldFileManagers.DealershipFileManager;
+import org.example.models.Vehicle;
+import org.example.models.LeaseContract;
+import org.example.models.SalesContract;
 
 import java.util.List;
 import java.util.Scanner;
@@ -98,8 +102,7 @@ public class UserInterface {
     }
 
     private void init() {
-        DealershipFileManager fileManager = new DealershipFileManager();
-        this.dealership = fileManager.getDealership();
+
     }
 
     public void processGetByPriceRequest() {
@@ -389,3 +392,5 @@ public class UserInterface {
         }
     }
 }
+
+*/

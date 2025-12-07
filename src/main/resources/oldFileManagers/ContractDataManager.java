@@ -1,7 +1,9 @@
-package org.example.contracts;
+package org.example.oldFileManagers;
 
-import org.example.dealership.DealershipFileManager;
-import org.example.dealership.Vehicle;
+import org.example.models.Vehicle;
+import org.example.models.Contract;
+import org.example.models.LeaseContract;
+import org.example.models.SalesContract;
 
 import java.util.ArrayList;
 import java.util.List;

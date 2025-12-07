@@ -1,21 +1,34 @@
-package org.example.dealership;
+package org.example.models;
+
+import org.example.dataManager.VehiclesDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Dealership {
+    private int dealershipID;
     private String name;
     private String address;
     private String phone;
     private List<Vehicle> inventory = new ArrayList<>();
 
+
     public Dealership() {
     }
 
-    public Dealership(String name, String address, String phone) {
+    public Dealership(int dealershipID, String name, String address, String phone) {
+        this.dealershipID = dealershipID;
         this.name = name;
         this.address = address;
         this.phone = phone;
+    }
+
+    public int getDealershipID() {
+        return dealershipID;
+    }
+
+    public void setDealershipID(int dealershipID) {
+        this.dealershipID = dealershipID;
     }
 
     public String getName() {
@@ -122,6 +135,7 @@ public class Dealership {
 
     //all vehicles
     public List<Vehicle> getAllVehicles() {
+
         return this.inventory;
     }
 

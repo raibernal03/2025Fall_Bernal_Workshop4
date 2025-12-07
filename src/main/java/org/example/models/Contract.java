@@ -1,14 +1,14 @@
-package org.example.contracts;
-
-import org.example.dealership.Vehicle;
+package org.example.models;
 
 public abstract class Contract {
+    private int contractID;
     private String date;
     private String customerName;
     private String customerEmail;
     private Vehicle vehicle;
 
-    public Contract(String date, String customerName, String customerEmail, Vehicle vehicle) {
+    public Contract(int contractID,String date, String customerName, String customerEmail, Vehicle vehicle) {
+        this .contractID = contractID;
         this.date = date;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -16,6 +16,15 @@ public abstract class Contract {
     }
 
     //getters and setters
+
+    public int getContractID() {
+        return contractID;
+    }
+
+    public void setContractID(int contractID) {
+        this.contractID = contractID;
+    }
+
     public String getDate() {
         return date;
     }

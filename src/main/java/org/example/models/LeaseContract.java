@@ -1,12 +1,10 @@
-package org.example.contracts;
-
-import org.example.dealership.Vehicle;
+package org.example.models;
 
 public class LeaseContract extends Contract {
 
 
-    public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicle) {
-        super(date, customerName, customerEmail, vehicle);
+    public LeaseContract(int contractID, String date, String customerName, String customerEmail, Vehicle vehicle) {
+        super(contractID, date, customerName, customerEmail, vehicle);
     }
 
     public double getExpectedEndingValue() {

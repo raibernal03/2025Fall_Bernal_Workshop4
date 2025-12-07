@@ -1,4 +1,8 @@
-package org.example.contracts;
+package org.example.oldFileManagers;
+
+import org.example.models.Contract;
+import org.example.models.LeaseContract;
+import org.example.models.SalesContract;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
