@@ -114,5 +114,14 @@ public class GUI {
         }
     }
 
+    public void leaseOrBuy(){
+
+            System.out.println("""
+                    1) Buy a car\
+                    
+                    2) Lease a car\
+                    
+                    0) Continue without a contract""");
+    }
 
 }
